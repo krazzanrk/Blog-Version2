@@ -1,0 +1,15 @@
+{% extends 'custom_admin_base.html' %}
+
+{% block custom-admin %}
+
+    <div class="add-blogform">
+        <form  method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_table }}
+            <input type="submit" name="SUBMIT">
+
+        </form>
+    </div>
+
+
+{% endblock %}

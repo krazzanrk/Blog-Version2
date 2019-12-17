@@ -1,0 +1,22 @@
+{% extends 'custom_admin_base.html' %}
+{% block custom-admin %}
+    <h1>ADD CATEGORY</h1>
+
+
+
+    <div class="cat">
+    <form method="post" action="">
+        {% csrf_token %}
+        <input type="text" name="category_name" >
+        <div>
+{#            {% for error in my_form.category_name.errors %}#}
+                <p>{{  my_form.category_name.errors }}</p>
+{#            {% endfor %}#}
+        </div>
+    <div>
+        <input type="submit" name="SUBMIT">
+        </div>
+    </form>
+    </div>
+
+{% endblock %}

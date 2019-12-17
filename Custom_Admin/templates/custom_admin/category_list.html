@@ -1,0 +1,11 @@
+{% extends 'custom_admin_base.html' %}
+{% block custom-admin %}
+    <h1>Category List</h1>
+    <ul>
+    {% for cat in categories %}
+        <li><a href="{% url 'Custom_Admin:admin_category_update' cat.id %}">{{ cat.category_name }}</a></li>
+    {% endfor %}
+
+    </ul>
+
+{% endblock %}

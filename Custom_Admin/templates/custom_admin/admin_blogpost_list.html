@@ -1,0 +1,11 @@
+{% extends 'custom_admin_base.html' %}
+{% block custom-admin %}
+     <h1>Blog List</h1>
+    <ul>
+    {% for blog in bloglists %}
+        <li><a href="{% url 'Custom_Admin:admin_blog_update' blog.id %}">{{ blog.blog_title }}</a></li>
+    {% endfor %}
+
+    </ul>
+{% endblock %}
+

@@ -1,0 +1,60 @@
+{% extends 'custom_admin_base.html' %}
+{% block custom-admin %}
+
+    <h1 style="color: darkcyan;text-align: center">Update the Blog</h1>
+    <hr>
+
+    <div class="blog-update">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="div1">
+
+                <label for="title"><b>Title:</b></label>
+
+                <input name="title" type="text" value="{{ update_blog.blog_title }}">
+
+            </div>
+            <div class="div1">
+
+                <label for="author"><b>Author:</b></label>
+                <input name="author" value="{{ update_blog.blog_author }}" type="text">
+
+            </div>
+            <div class="div1">
+
+                <label for="pub_date"><b>Published date:</b></label>
+
+                <input name="pub_date" value="{{ update_blog.pub_date}}" type="date">
+
+            </div>
+            <div class="div1">
+
+                <label for="body"><b>Body:</b></label>
+
+                <input name="body" value="{{ update_blog.blog_body}}" type="text">
+
+            </div>
+            <div class="div1">
+
+                <label for="image"><b>Image:</b></label>
+
+                <input name="image" value="{{ update_blog.blog_image }}" type="file">
+
+            </div>
+            <div class="div1">
+
+                <label for="category"><b>Category:</b></label>
+                {{ form.blog_category }}
+
+
+            </div>
+
+            <div class="div1">
+                <input type="submit" value="update">
+            </div>
+
+        </form>
+    </div>
+
+{% endblock %}

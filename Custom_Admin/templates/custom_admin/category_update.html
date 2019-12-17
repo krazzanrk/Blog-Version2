@@ -1,0 +1,10 @@
+{% extends 'custom_admin_base.html' %}
+{% block custom-admin %}
+    <h1>Change category</h1>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="category_name" value="{{ update_category.category_name }}">
+        <input type="submit" name="SUBMIT">
+
+    </form>
+{% endblock %}
