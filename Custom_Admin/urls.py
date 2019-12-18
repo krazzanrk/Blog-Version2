@@ -11,5 +11,9 @@ urlpatterns = [
     path('Blog_app/Blogpost', admin_blog_list, name='admin_blog_list'),
     path('Blog_app/Blogpost/<int:pk>/change', admin_blog_update, name='admin_blog_update'),
     path('Blog_app/category/<int:pk>/change', admin_category_update, name='admin_category_update'),
+    path('register', registration_view, name='register'),
+    path('login', login_view, name='login'),
+    path('logout',logout_view,name='logout'),
+    path('delete/<int:pk>',delete_confirmview,name='delete_cat')
 
 ]

@@ -1,5 +1,6 @@
 from django import forms
 from Blog_app.models import *
+from .models import *
 
 
 class CategoryForm(forms.Form):
@@ -16,8 +17,8 @@ class CategoryForm(forms.Form):
 
 
 class BlogAddForm(forms.Form):
-    blog_title = forms.CharField(max_length=100,min_length=5)
-    blog_author = forms.CharField(max_length=50,min_length=3)
+    blog_title = forms.CharField(max_length=100, min_length=5)
+    blog_author = forms.CharField(max_length=50, min_length=3)
     pub_date = forms.DateTimeField()
     blog_body = forms.CharField(widget=forms.Textarea)
     blog_image = forms.ImageField()
@@ -37,5 +38,32 @@ class DeleteForm(forms.Form):
     item_id = forms.IntegerField()
 
 
+class ConfirmForm(forms.Form):
+    item_id = forms.IntegerField()
+
+
 class CategoryDeleteForm(forms.Form):
     cat_id = forms.IntegerField()
+
+
+class RegistrationForm(forms.Form):
+    first_name = forms.CharField(widget=forms.TextInput())
+    middle_name = forms.CharField(widget=forms.TextInput())
+    last_name = forms.CharField(widget=forms.TextInput())
+    username = forms.CharField(widget=forms.TextInput())
+
+    email = forms.CharField(widget=forms.EmailInput())
+    password = forms.CharField(widget=forms.PasswordInput())
+    confirm_password = forms.CharField(widget=forms.PasswordInput())
+
+    def clean_confirm_password(self):
+        password = self.cleaned_data['password']
+        confirm_password = self.cleaned_data['confirm_password']
+        if password != confirm_password:
+            raise forms.ValidationError("Entered password and confirm password not match. Enter password again")
+        return confirm_password
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(widget=forms.TextInput())
+    password = forms.CharField(widget=forms.PasswordInput())

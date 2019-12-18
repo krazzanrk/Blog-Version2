@@ -1,10 +1,23 @@
 {% extends 'custom_admin_base.html' %}
 {% block custom-admin %}
     <h1>Change category</h1>
-    <form method="post">
+    <form method="post" action="{% url 'Custom_Admin:category_list' %}">
         {% csrf_token %}
         <input type="text" name="category_name" value="{{ update_category.category_name }}">
         <input type="submit" name="SUBMIT">
 
     </form>
+
+
+     <form method="post">
+        {% csrf_token %}
+
+        <input type="hidden" name="item_id" value="{{ update_category.id}}">
+         <button type="submit"><a href="{% url 'Custom_Admin:delete_cat' update_category.id %}" style="text-decoration: none">Delete</a></button>
+{#         <input type="submit" name="hhh">#}
+
+
+    </form>
+
+
 {% endblock %}

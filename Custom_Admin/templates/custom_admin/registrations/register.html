@@ -1,0 +1,14 @@
+{% extends 'custom_admin_base.html' %}
+{% block custom-admin %}
+
+    <h1>Register</h1>
+
+
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <input type="submit" name="submit">
+    </form>
+
+
+{% endblock %}
