@@ -1,13 +1,18 @@
 {% extends 'custom_admin_base.html' %}
+{% load crispy_forms_tags %}
 {% block custom-admin %}
 
-    <h1>login</h1>
+    <h1 style="text-align: center">Login</h1>
+    <div style="margin-left: 45%; width: auto; height: auto;margin-top: 10%">
 
-    <form method="post" action="{% url 'login' %}">
+    <form method="post" action="">
         {% csrf_token %}
-        {{ form.as_table }}
+        {{ form | crispy}}
+        <div style="padding-left: 50px;padding-top: 25px" >
         <input type="submit" name="submit">
+        </div>
     </form>
+    </div>
 
 
 {% endblock %}

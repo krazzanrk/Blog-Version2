@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>News</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'newsblogs/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'newsblogs/detail-news.css' %}">
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="row-navbar">
+        <div class="column1-navbar">
+            <h1>Naya Naya News</h1>
+        </div>
+        <div class="column2-navbar">
+            <ul>
+                <li><a href="{% url 'Blog_app:index' %}">HOME</a></li>
+                {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'Custom_Admin:admin_index' %}"> DASHBOARD</a></li>
+                    <li><a href="{% url 'Custom_Admin:logout' %}">LOGOUT</a></li>
+
+
+
+
+                {% else %}
+                    <li><a href="{% url 'Custom_Admin:login' %}">LOGIN</a></li>
+                    <li><a href="{% url 'Custom_Admin:register' %}">REGISTER</a></li>
+                {% endif %}
+
+
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+
+{% block content %}{% endblock %}
+
+</body>
+</html>

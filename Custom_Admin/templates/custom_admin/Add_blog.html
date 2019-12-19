@@ -1,14 +1,23 @@
 {% extends 'custom_admin_base.html' %}
+{% load crispy_forms_tags %}
 
 {% block custom-admin %}
+    <div style="margin-left: 50px">
+        <h1>Add blog post</h1>
 
-    <div class="add-blogform">
-        <form  method="post" action="" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_table }}
-            <input type="submit" name="SUBMIT">
+        <div class="add-blogform" style="padding: 25px">
+            <form method="post" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form | crispy }}
 
-        </form>
+                <div style="float: right;padding-top: 30px;margin-right: 100px">
+                    <button type="submit"
+                            style="background-color: darkcyan;padding: 15px 32px;text-align: center;text-decoration: none; font-size: 16px;">
+                        save
+                    </button>
+
+            </form>
+        </div>
     </div>
 
 

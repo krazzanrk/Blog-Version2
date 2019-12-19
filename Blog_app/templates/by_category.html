@@ -1,0 +1,59 @@
+{% extends '_base.html' %}
+
+{% block content %}
+    <div class="detail-row">
+        <div class="detail-col1">
+            <div class="newslist">
+
+
+                {% for r_news in news_by_category %}
+                    <h3><b><u>Recent News on {{ r_news.category }}</u></b></h3>
+                    <div class="news">
+                        <div class="news-title">
+                            <h2>{{ r_news.title }}</h2>
+                        </div>
+                        <div class="news-body" style="padding-right:185px">
+                            <div class="row1">
+                                <div class="newslistcolumn1">
+                                    <p2>{{ r_news.pub_date }}| By {{ r_news.author }}</p2>
+
+                                    <p>{{ r_news.body | truncatechars:200 }}</p>
+                                    <a href="{% url 'newsblog:detail' r_news.id %}">Readmore...</a>
+                                </div>
+                                <div class="newslistcolumn2">
+                                    <img src="{{ r_news.image.url }}" height="150px" width="300px">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+
+            </div>
+        </div>
+    <div class="detail-col2">
+                <div class="detail-col2-div">
+                    <h2>Latest News</h2><hr>
+                    {% for news in random %}
+                    <div class="recent-post">
+                        <div class="title">
+                            <h4>{{news.title}}}</h4>
+                            <img src="{{ news.image.url }}" height="80px" width="100%">
+
+                            <p>{{ news.body | truncatechars:200 }}</p>
+
+                            <a href="{% url 'newsblog:detail' news.id %}">Readmore...</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+
+
+
+
+                </div>
+            </div>
+    </div>
+
+
+{% endblock %}

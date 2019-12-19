@@ -1,23 +1,37 @@
 {% extends 'custom_admin_base.html' %}
 {% block custom-admin %}
-    <h1>Change category</h1>
-    <form method="post" action="{% url 'Custom_Admin:category_list' %}">
-        {% csrf_token %}
-        <input type="text" name="category_name" value="{{ update_category.category_name }}">
-        <input type="submit" name="SUBMIT">
 
-    </form>
+    <div style="margin-left: 35px; width: 1000px">
+        <h1>Change category</h1>
+        <div style="margin-top: 25px">
+            <form method="post">
+                {% csrf_token %}
+                <label style="padding-right: 25px">Category:</label>
+                <input type="text" name="category_name" value="{{ update_category.category_name }}">
+                <hr>
+                <button type="submit" name="SUBMIT"
+                        style="float: right;margin-right: 50px;background-color: darkcyan;padding: 15px 32px;text-align: center;text-decoration: none; font-size: 16px;">
+                    Save
+                </button>
 
+            </form>
+        </div>
 
-     <form method="post">
-        {% csrf_token %}
+        <div>
+            <form method="post">
+                {% csrf_token %}
 
-        <input type="hidden" name="item_id" value="{{ update_category.id}}">
-         <button type="submit"><a href="{% url 'Custom_Admin:delete_cat' update_category.id %}" style="text-decoration: none">Delete</a></button>
-{#         <input type="submit" name="hhh">#}
-
-
-    </form>
+                <input type="hidden" name="item_id" value="{{ update_category.id }}">
+                <button type="submit"
+                        style="background-color: red;padding: 15px 32px;text-align: center; font-size: 16px;">
+                    <a href="{% url 'Custom_Admin:delete_cat' update_category.id %}"
+                       style="text-decoration: none; color: white;">
+                        Delete
+                    </a>
+                </button>
+            </form>
+        </div>
+    </div>
 
 
 {% endblock %}

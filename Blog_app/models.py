@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from Custom_Admin.models import *
 
 
 # Create your models here.
@@ -18,6 +19,7 @@ class BlogPost(models.Model):
     blog_body = models.TextField()
     blog_image = models.ImageField()
     blog_category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='userblog',blank=True)
 
     def __str__(self):
         return self.blog_title
@@ -31,6 +33,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.username
-
-
-

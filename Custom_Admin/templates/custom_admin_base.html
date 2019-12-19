@@ -5,9 +5,20 @@
     <title>Custom Admin</title>
 </head>
 <body>
-{#<h1>Admin base</h1>#}
+<h1 style=" color: yellow; background-color:darkcyan;text-align: left;">Django Administration
+    <span style="margin-left: 40%"><a href="{% url 'Blog_app:index' %}" style="text-decoration: none">Home</a> &nbsp&nbsp&nbsp&nbsp
+        {% if request.user.is_active %}
+            <a href="{% url 'Custom_Admin:logout' %}" style="text-decoration: none">Logout</a>
+        {% else %}
+            <a href="{% url 'Custom_Admin:login' %}" style="text-decoration: none">Login</a>&nbsp&nbsp&nbsp&nbsp
+            <a href="{% url 'Custom_Admin:register' %}" style="text-decoration: none">Register</a>
+        {% endif %}
+    </span>
+</h1>
+
+
 {% block custom-admin %}
-{% endblock%}
+{% endblock %}
 
 </body>
 </html>

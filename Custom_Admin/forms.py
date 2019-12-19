@@ -19,7 +19,7 @@ class CategoryForm(forms.Form):
 class BlogAddForm(forms.Form):
     blog_title = forms.CharField(max_length=100, min_length=5)
     blog_author = forms.CharField(max_length=50, min_length=3)
-    pub_date = forms.DateTimeField()
+    pub_date = forms.DateField()
     blog_body = forms.CharField(widget=forms.Textarea)
     blog_image = forms.ImageField()
     blog_category = forms.ModelChoiceField(queryset=Category.objects.all())
@@ -62,6 +62,15 @@ class RegistrationForm(forms.Form):
         if password != confirm_password:
             raise forms.ValidationError("Entered password and confirm password not match. Enter password again")
         return confirm_password
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        username_exist = BlogPost.objects.filter(user__username__iexact=username).count()
+
+        if username_exist > 0:
+            raise forms.ValidationError('This title has already been used. Please try again.')
+
+        return username
 
 
 class LoginForm(forms.Form):

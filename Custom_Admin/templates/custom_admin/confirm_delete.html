@@ -1,18 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<form method="post">
-    {% csrf_token %}
+{% extends 'custom_admin_base.html' %}
+{% block custom-admin %}
 
-    <input type="hidden" name="item_id" value="{{ cat_instant.id }}">
-    <button type="submit">yes</button>
-</form>
-
+    <div style="margin-left: 30px">
+        <h2>Are you sure?</h2>
+        <h3>Are you sure you want to delete the category "adds"? All of the following related items will be
+            deleted:</h3>
+        <h3>summary</h3>
+        <ul>
+            <li>category:{{ cat_instant.id }}</li>
+            <li>category:{{ cat_instant.category_name }}</li>
+        </ul>
 
 
-</body>
-</html>
+        <form method="post">
+            {% csrf_token %}
+
+            <input type="hidden" name="item_id" value="{{ cat_instant.id }}">
+            <button type="submit"
+                    style="background-color: red;color: white;padding: 12px 30px;text-align: center;text-decoration: none; font-size: 16px;">
+                Yes,I'm sure
+            </button>
+        </form>
+        <button type="submit"
+                style="background-color: gray;padding: 12px 30px;text-align: center;text-decoration: none; font-size: 16px;">
+           <a href="{% url 'Custom_Admin:category_list' %}" style="text-decoration: none; color: black"> No,take me back</a>
+        </button>
+
+    </div>
+{% endblock %}

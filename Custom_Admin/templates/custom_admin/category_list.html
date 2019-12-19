@@ -1,11 +1,22 @@
 {% extends 'custom_admin_base.html' %}
 {% block custom-admin %}
-    <h1>Category List</h1>
-    <ul>
-    {% for cat in categories %}
-        <li><a href="{% url 'Custom_Admin:admin_category_update' cat.id %}">{{ cat.category_name }}</a></li>
-    {% endfor %}
+    <div style="margin-left: 25px">
 
-    </ul>
+
+        <h1 style="text-align:left;float:left;">Select category to change</h1>
+        <h3 style="text-align:right;float:right; background-color: gray ;margin-right: 50px;padding-left: 25px;padding-right: 25px; border-radius: 25%">
+            <a href="{% url 'Custom_Admin:add_category' %}" style="text-decoration: none">Add Category</a></h3>
+        <hr style="clear:both;"/>
+
+        <ul>
+            {% for cat in categories %}
+                <li style=""><a href="{% url 'Custom_Admin:admin_category_update' cat.id %}"
+                                style="text-decoration: none">{{ cat.category_name }}</a>
+                </li>
+                <hr>
+            {% endfor %}
+
+        </ul>
+    </div>
 
 {% endblock %}

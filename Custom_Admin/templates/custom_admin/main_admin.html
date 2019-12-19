@@ -1,11 +1,21 @@
 {% extends 'custom_admin_base.html' %}
 {% block custom-admin %}
 
-    <h1 style=" color: yellow; background-color:darkcyan;text-align: left;">Django Administration </h1>
-        <a href="{% url 'Custom_Admin:logout' %}">logout</a>
+    <div style=" margin-left:40px;width: 500px; height: auto; ">
+    <div>
+        <h3 style=" color: yellow; background-color:darkcyan;text-align: left;">App Name</h3>
 
-    <div style="margin-top:30px ">
-{#        <h1 style=" color: yellow; background-color:darkcyan;text-align: left;" >{{app}}</h1>#}
+        <h3 style=" color: darkcyan; text-align: left;"><a
+                href="{% url 'Custom_Admin:category_list' %}">Category</a><span
+                style="float: right;padding-right: 25px;"><a href="{% url 'Custom_Admin:add_category' %}">Add</a></span>
+        </h3>
+        <hr>
+        <h3 style=" color: darkcyan; text-align: left;"><a href="{% url 'Custom_Admin:admin_blog_list' %}">Blog
+            posts</a><span style="float: right;padding-right: 25px;"><a href="{% url 'Custom_Admin:add_blog' %}">Add</a></span>
+        </h3>
+        <hr>
+    </div>
+
 
     </div>
 
