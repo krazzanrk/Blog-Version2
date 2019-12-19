@@ -12,7 +12,7 @@
                 <div class="detail-news-image"><img src="{{ single_blog.blog_image.url }}" height="250px"
                                                     width="100%"></div>
 
-                <div class="detail-news-body"><p>{{ single_blog.blog_body }}</p>
+                <div class="detail-news-body"><p>{{ single_blog.blog_body | linebreaks}}</p>
                 </div>
                 <hr>
 {#                <div class="detail-news-comment">#}
