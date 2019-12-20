@@ -116,6 +116,8 @@ def admin_category_update(request, pk):
         return redirect('Custom_Admin:login')
 
 
+
+
 def delete_confirmview(request, pk):
     if request.user.is_active:
         cat_instant = get_object_or_404(Category, pk=pk)

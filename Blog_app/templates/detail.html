@@ -3,92 +3,102 @@
 {% block content %}
 
     <div class="whole-body">
-        <div class="detail-row">
-            <div class="detail-col1">
-                <div class="detail-news-title"><h1>{{ single_blog.blog_title }}</h1>
-                    <p2>{{ single_blog.pub_date }} | By {{ single_blog.blog_author }}</p2>
-                </div>
+    <div class="detail-row">
+    <div class="detail-col1">
+        <div class="detail-news-title"><h1>{{ single_blog.blog_title }}</h1>
+            <p2>{{ single_blog.pub_date }} | By {{ single_blog.blog_author }}</p2>
+        </div>
 
-                <div class="detail-news-image"><img src="{{ single_blog.blog_image.url }}" height="250px"
-                                                    width="100%"></div>
+        <div class="detail-news-image"><img src="{{ single_blog.blog_image.url }}" height="250px"
+                                            width="100%"></div>
 
-                <div class="detail-news-body"><p>{{ single_blog.blog_body | linebreaks}}</p>
-                </div>
+        <div class="detail-news-body"><p>{{ single_blog.blog_body | linebreaks }}</p>
+        </div>
+        <hr>
+
+        {% if request.user.is_authenticated %}
+            <div class="detail-news-comment">
+            <h2>Comments</h2>
+            <div class="comment-post">
+            <form method="post" action="{% url 'Blog_app:detail_blog' single_blog.id %}">
+            {% csrf_token %}
+
+            <table>
+                <tr>
+                    <th>comment</th>
+                    <td><input type="text" name="message"></td>
+                </tr>
+
+                <tr>
+                    <th></th>
+                    <td><input type="number" name="blog_comment_id" value="{{ single_blog.id }}" hidden>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td><input type="submit"></td>
+                </tr>
+
+            </table>
+
+        {% else %}
+            <div class="detail-news-comment">
+            <h2>Sign in turn on comment</h2>
+            <div class="comment-post">
+
+        {% endif %}
+
+
+        </form>
+        </div>
+
+
+        <hr>
+        <div class="comment-read">
+            <div class="user-comment">
+                <h3><u>Comment Posted</u></h3>
+                {% for c in comments %}
+
+                    {% if single_blog.id == c.blog_comment_id %}
+
+
+
+                        <p>
+                            <span><b>{{ c.user.username }}</b><br><em><small>{{ c.commented_date }}</small></em></span>
+                            &nbsp&nbsp</br><p>{{ c.message }}</p>
+                    {% endif %}
+
+                {% endfor %}
+            </div>
+
+        </div>
+
+        </div>
+
+        </div>
+
+
+        <div class="detail-col2">
+            <div class="detail-col2-div">
+                <h2>Latest News</h2>
                 <hr>
-{#                <div class="detail-news-comment">#}
-{#                    <h2>Comments</h2>#}
-{#                    <div class="comment-post">#}
-{#                        <form method="post" action="{% url 'newsblog:detail' single_news.id %}">#}
-{#                            {% csrf_token %}#}
-{##}
-{#                            <table>#}
-{#                                <tr>#}
-{#                                    <th>Username</th>#}
-{#                                    <td><input type="text" name="username"></td>#}
-{#                                </tr>#}
-{##}
-{#                                <tr>#}
-{#                                    <th>comment</th>#}
-{#                                    <td><input type="text" name="message"></td>#}
-{#                                </tr>#}
-{##}
-{#                                  <tr>#}
-{#                                    <th></th>#}
-{#                                    <td><input type="number" name="blog_comment_id" value="{{ single_news.id }}" hidden></td>#}
-{#                                </tr>#}
-{##}
-{##}
-{#                                <tr>#}
-{#                                    <td><input type="submit"></td>#}
-{#                                </tr>#}
-{##}
-{#                            </table>#}
-{##}
-{##}
-{#                        </form>#}
-{#                    </div>#}
-{#                    <div class="comment-read">#}
-{#                        <div class="user-comment">#}
-{#                            <h3><u>Comment Posted</u></h3>#}
-{#                            {% for c in comment %}#}
-{##}
-{#                                {% if single_news.id == c.blog_comment_id%}#}
-{##}
-{##}
-{##}
-{#                                    <p><span><b>{{ c.username }}</b></span>&nbsp&nbsp</br>{{ c.message }}</p>#}
-{#                                {% endif %}#}
-{##}
-{#                            {% endfor %}#}
-{#                        </div>#}
-{##}
-{#                    </div>#}
-{##}
-{#                </div>#}
+                {% for r_blog in random_blogs %}
+                    <div class="recent-post">
+                        <div class="title">
+                            <h4>{{ r_blog.blog_title }}}</h4>
+                            <img src="{{ r_blog.blog_image.url }}" height="80px" width="100%">
 
-            </div>
+                            <p>{{ r_blog.blog_body | truncatechars:200 }}</p>
 
-
-            <div class="detail-col2">
-                <div class="detail-col2-div">
-                    <h2>Latest News</h2>
-                    <hr>
-                    {% for r_blog in random_blogs %}
-                        <div class="recent-post">
-                            <div class="title">
-                                <h4>{{ r_blog.blog_title }}}</h4>
-                                <img src="{{ r_blog.blog_image.url }}" height="80px" width="100%">
-
-                                <p>{{ r_blog.blog_body | truncatechars:200 }}</p>
-
-                                <a href="{% url 'Blog_app:detail_blog' r_blog.id %}">Readmore...</a>
-                            </div>
+                            <a href="{% url 'Blog_app:detail_blog' r_blog.id %}">Readmore...</a>
                         </div>
-                    {% endfor %}
+                    </div>
+                {% endfor %}
 
 
-                </div>
             </div>
+        </div>
         </div>
     </div>
 

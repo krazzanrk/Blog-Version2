@@ -19,17 +19,17 @@ class BlogPost(models.Model):
     blog_body = models.TextField()
     blog_image = models.ImageField()
     blog_category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='userblog',blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='userblog', blank=True)
 
     def __str__(self):
         return self.blog_title
 
 
 class Comment(models.Model):
-    username = models.CharField(max_length=200)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     message = models.TextField()
     commented_date = models.DateTimeField(auto_now=True)
     blog_comment_id = models.IntegerField()
 
     def __str__(self):
-        return self.username
+        return self.user.username

@@ -26,7 +26,7 @@
 
 <div class="newslist">
     <h3><b><u>Recent News</u></b></h3>
-{%  for l_blog in latest_blogs %}
+{%  for l_blog in blog_pages %}
     <div class="news">
         <div class="news-title">
             <h2>{{ l_blog.blog_title}}</h2>
@@ -49,9 +49,9 @@
 
 
 </div>
-{#    <div class="pag" style="text-align: center">#}
-{#    {% include "partials/pagination.html" %}#}
-{#    </div>#}
+    <div class="pag" style="text-align: center">
+    {% include "partials/pagination.html" %}
+    </div>
 
 {% endblock %}
 
