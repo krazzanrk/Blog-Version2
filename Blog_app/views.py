@@ -33,7 +33,7 @@ def indexview(request):
 def detail_blogview(request, pk):
     single_blog = BlogPost.objects.get(pk=pk)
     random_blogs = BlogPost.objects.order_by('?')[:3]
-    comments=Comment.objects.all()
+    comments = Comment.objects.all()
 
     if request.method == "POST":
         form = CommentForm(request.POST)
@@ -50,6 +50,23 @@ def detail_blogview(request, pk):
         'single_blog': single_blog,
         'random_blogs': random_blogs,
         'form': form,
-        'comments':comments
+        'comments': comments
 
     })
+
+
+def category_listview(request):
+    category = Category.objects.all()
+
+    return render(request, 'blog_by_categories.html', {'categories': category})
+
+
+def blogtiltle_by_category_view(request, pk):
+
+    blog_title_by_category = BlogPost.objects.filter(blog_category_id=pk)
+    category_name=BlogPost.objects.filter(blog_category_id=pk).first()
+    blog_number=BlogPost.objects.filter(blog_category_id=pk).count()
+
+    return render(request, 'blog_tile_by_categories.html', {'blog_titles': blog_title_by_category,
+                                                            'blog_no':blog_number,
+                                                           'cat_name':category_name })

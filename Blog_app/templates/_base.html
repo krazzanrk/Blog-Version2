@@ -18,6 +18,7 @@
         <div class="column2-navbar">
             <ul>
                 <li><a href="{% url 'Blog_app:index' %}">HOME</a></li>
+                <li><a href="{% url 'Blog_app:blog_category_list' %}">CATEGORIES</a></li>
                 {% if request.user.is_authenticated %}
                     <li><a href="{% url 'Custom_Admin:admin_index' %}"> DASHBOARD</a></li>
                     <li><a href="{% url 'Custom_Admin:logout' %}">LOGOUT</a></li>

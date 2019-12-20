@@ -1,0 +1,42 @@
+{% extends '_base.html' %}
+{% block content %}
+
+
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 50%;
+            margin-left: 25%;
+            margin-top: 10%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+
+
+    <table>
+        <tr>
+            <th>Category name</th>
+
+
+        </tr>
+        {% for c in categories %}
+
+        <tr>
+            <td><a href="{% url 'Blog_app:blogtitle_category_list' c.id %}">{{c.category_name}}</a></td>
+
+        </tr>
+    {% endfor %}
+
+    </table>
+
+{% endblock %}

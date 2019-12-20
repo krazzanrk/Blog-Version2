@@ -1,0 +1,48 @@
+{% extends '_base.html' %}
+{% block content %}
+
+
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 50%;
+
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+
+    <h1>{{ cat_name.blog_category  }}&nbsp;&nbsp;&nbsp;Total blog:{{ blog_no }}</h1>
+
+
+<div style="margin-left: 25%">
+    <table>
+        <tr>
+            <th>Blog Title</th>
+            <th>Author</th>
+
+        </tr>
+        {% for t in blog_titles %}
+
+
+                <tr>
+                    <td><a href="{%  url 'Blog_app:detail_blog' t.id%}" style="text-decoration: none">{{ t.blog_title }}</a></td>
+                    <td>{{t.blog_author}}</td>
+
+                </tr>
+
+        {% endfor %}
+
+    </table>
+</div>
+
+{% endblock %}
