@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib.auth import authenticate
+
 from Blog_app.models import *
 from .models import *
 
@@ -76,3 +78,12 @@ class RegistrationForm(forms.Form):
 class LoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput())
     password = forms.CharField(widget=forms.PasswordInput())
+
+    def clean(self, *args, **kwargs):
+        username = self.cleaned_data.get("username")
+        password = self.cleaned_data.get("password")
+        if username and password:
+            user = authenticate(username=username)
+            if not user:
+                raise forms.ValidationError("check your username and password")
+

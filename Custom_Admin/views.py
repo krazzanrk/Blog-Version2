@@ -9,14 +9,14 @@ from django.contrib import messages
 
 # Create your views here.
 def admin_indexview(request):
-    if not request.user.is_active:
+    if not request.user.is_authenticated:
         return redirect('Custom_Admin:login')
 
     return render(request, 'custom_admin/main_admin.html')
 
 
 def add_category_view(request):
-    if request.user.is_active:
+    if request.user.is_authenticated:
         if request.method == "POST":
             form = CategoryForm(request.POST)
             if form.is_valid():
@@ -32,7 +32,7 @@ def add_category_view(request):
 
 
 def category_list(request):
-    if request.user.is_active:
+    if request.user.is_authenticated:
         categories = Category.objects.all()
 
         return render(request, 'custom_admin/category_list.html', {'categories': categories})
@@ -42,7 +42,7 @@ def category_list(request):
 
 
 def add_blog_view(request):
-    if request.user.is_active:
+    if request.user.is_authenticated:
 
         if request.method == 'POST':
             form = BlogAddForm(request.POST, request.FILES)
@@ -60,7 +60,7 @@ def add_blog_view(request):
 
 
 def admin_blog_list(request):
-    if request.user.is_active:
+    if request.user.is_authenticated:
         blog_list = BlogPost.objects.filter(user_id=request.user.id)
         return render(request, 'custom_admin/admin_blogpost_list.html', {'bloglists': blog_list})
 
@@ -69,7 +69,7 @@ def admin_blog_list(request):
 
 
 def admin_blog_update(request, pk):
-    if request.user.is_active:
+    if request.user.is_authenticated:
 
         blog_instance = get_object_or_404(BlogPost, pk=pk)
 
@@ -95,7 +95,7 @@ def admin_blog_update(request, pk):
 
 
 def admin_category_update(request, pk):
-    if request.user.is_active:
+    if request.user.is_authenticated:
         category_instance = get_object_or_404(Category, pk=pk)
         if request.method == 'POST':
             form = CategoryForm(request.POST)
@@ -116,10 +116,8 @@ def admin_category_update(request, pk):
         return redirect('Custom_Admin:login')
 
 
-
-
 def delete_confirmview(request, pk):
-    if request.user.is_active:
+    if request.user.is_authenticated:
         cat_instant = get_object_or_404(Category, pk=pk)
 
         if request.method == 'POST':
@@ -145,29 +143,27 @@ def delete_confirmview(request, pk):
 
 
 def registration_view(request):
-    if request.user.is_active:
+    if request.user.is_authenticated:
         return redirect('Custom_Admin:admin_index')
 
     else:
 
         if request.method == "POST":
             form = RegistrationForm(request.POST)
-            try:
-                if form.is_valid():
-                    print("Form Validate")
-                    username = form.cleaned_data['username']
-                    email = form.cleaned_data['email']
-                    password = form.cleaned_data['password']
-                    first_name = form.cleaned_data['first_name']
-                    middle_name = form.cleaned_data['middle_name']
-                    last_name = form.cleaned_data['last_name']
 
-                    User.objects.create_user(username, email, password, first_name=first_name, middle_name=middle_name,
-                                             last_name=last_name)
+            if form.is_valid():
+                print("Form Validate")
+                username = form.cleaned_data['username']
+                email = form.cleaned_data['email']
+                password = form.cleaned_data['password']
+                first_name = form.cleaned_data['first_name']
+                middle_name = form.cleaned_data['middle_name']
+                last_name = form.cleaned_data['last_name']
 
-                    return redirect('Custom_Admin:login')
-            except:
-                pass
+                User.objects.create_user(username, email, password, first_name=first_name, middle_name=middle_name,
+                                         last_name=last_name)
+
+                return redirect('Custom_Admin:login')
 
         else:
             form = RegistrationForm()
@@ -176,7 +172,7 @@ def registration_view(request):
 
 
 def login_view(request):
-    if request.user.is_active:
+    if request.user.is_authenticated:
         return redirect('Custom_Admin:admin_index')
     else:
         if request.method == 'POST':
@@ -188,10 +184,6 @@ def login_view(request):
                 if user is not None:
                     login(request, user)
                     return redirect('Custom_Admin:admin_index')
-
-                else:
-                    messages.error(request, 'error loging in')
-
 
         else:
             form = LoginForm()

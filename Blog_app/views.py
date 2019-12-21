@@ -31,42 +31,47 @@ def indexview(request):
 
 
 def detail_blogview(request, pk):
-    single_blog = BlogPost.objects.get(pk=pk)
-    random_blogs = BlogPost.objects.order_by('?')[:3]
-    comments = Comment.objects.all()
+    try:
+        single_blog = BlogPost.objects.get(pk=pk)
 
-    if request.method == "POST":
-        form = CommentForm(request.POST)
+        random_blogs = BlogPost.objects.order_by('?')[:3]
+        comments = Comment.objects.all()
 
-        if form.is_valid():
-            Comment.objects.create(**form.cleaned_data, user_id=request.user.id)
+        if request.method == "POST":
+            form = CommentForm(request.POST)
 
+            if form.is_valid():
+                Comment.objects.create(**form.cleaned_data, user_id=request.user.id)
+
+            else:
+                print(form.errors)
         else:
-            print(form.errors)
-    else:
-        form = CommentForm()
+            form = CommentForm()
 
-    return render(request, 'detail.html', {
-        'single_blog': single_blog,
-        'random_blogs': random_blogs,
-        'form': form,
-        'comments': comments
+        return render(request, 'detail.html', {
+            'single_blog': single_blog,
+            'random_blogs': random_blogs,
+            'form': form,
+            'comments': comments
 
-    })
+        })
+
+    except:
+        return render(request, '404error.html')
 
 
 def category_listview(request):
     category = Category.objects.all()
 
-    return render(request, 'blog_by_categories.html', {'categories': category})
+    return render(request, 'blog_by_categories.html', {'categories': category,
+                                                       })
 
 
 def blogtiltle_by_category_view(request, pk):
-
     blog_title_by_category = BlogPost.objects.filter(blog_category_id=pk)
-    category_name=BlogPost.objects.filter(blog_category_id=pk).first()
-    blog_number=BlogPost.objects.filter(blog_category_id=pk).count()
+    category_name = BlogPost.objects.filter(blog_category_id=pk).first()
+    blog_number = BlogPost.objects.filter(blog_category_id=pk).count()
 
     return render(request, 'blog_tile_by_categories.html', {'blog_titles': blog_title_by_category,
-                                                            'blog_no':blog_number,
-                                                           'cat_name':category_name })
+                                                            'blog_no': blog_number,
+                                                            'cat_name': category_name})
